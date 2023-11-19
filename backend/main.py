@@ -4,7 +4,7 @@ from app.db.session import engine, SessionLocal
 from app.db.models import Player
 from app.db.fetch_data import fetch_top_players_data
 from app.db.store_data import store_top_players_data
-from app.api import top_players
+from app.api import players
 
 
 app = FastAPI()
@@ -17,8 +17,8 @@ def get_db():
     finally:
         db.close()
 
-        
-app.include_router(top_players.router)
+
+app.include_router(players.router)
 
 # Endpoint to fetch and store top players data
 @app.get("/fetch-top-players")
