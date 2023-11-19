@@ -24,7 +24,7 @@ def store_top_players_data(db: Session, top_players_data):
                             username = user_data['username']
 
                             try:
-                                print(f"Fetching rating history for username: {username}")
+                                print(f"Fetching index for username: {index}")
                                 rating_history = get_rating_history(username)
 
                                 # Convert datetime objects to strings
@@ -44,7 +44,6 @@ def store_top_players_data(db: Session, top_players_data):
                                         username=username,
                                         rating_history=json.dumps(rating_history),
                                         serial_number=index,
-                                        
                                     )
                                     db.add(new_player)
 
@@ -66,6 +65,7 @@ def store_top_players_data(db: Session, top_players_data):
                     existing_player = db.query(Player).filter(Player.username == username).first()
                     existing_player.rating_history = json.dumps(rating_history)
                     existing_player.serial_number = index
+                    # Commit the changes within the same transaction
                     db.commit()
                     break
 
